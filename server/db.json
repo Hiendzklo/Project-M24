@@ -1,0 +1,55 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Macbook Pro 13''",
+      "status": "Available",
+      "category": "Laptops",
+      "price": 2999,
+      "date": "2022-06-20"
+    },
+    {
+      "id": 2,
+      "name": "Macbook Pro 14''",
+      "status": "In Review",
+      "category": "Laptops",
+      "price": 2999,
+      "date": "2022-02-22"
+    },
+    {
+      "id": 3,
+      "name": "iPhone 13 Mini",
+      "status": "Sold Out",
+      "category": "Phones",
+      "price": 999,
+      "date": "2022-02-22"
+    },
+    {
+      "id": 4,
+      "name": "iPhone 14",
+      "status": "Preorder",
+      "category": "Phones",
+      "price": 1299,
+      "date": "2022-02-22"
+    },
+    {
+      "id": 5,
+      "name": "AirPods 2",
+      "status": "Available",
+      "category": "Electronics",
+      "price": 199,
+      "date": "2022-02-22"
+    },
+    {
+      "name": "iphone5",
+      "price": 123123,
+      "sku": "hienklo1",
+      "status": "Available",
+      "description": "sdasaas",
+      "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-e8bd3.appspot.com/o/images%2F%E1%BA%A2nh%20ch%E1%BB%A5p%20m%C3%A0n%20h%C3%ACnh%202024-02-27%20195201.png?alt=media&token=459f487d-0dfb-4523-9769-2a23e1a08bd8",
+      "date": "2024-07-04",
+      "category": "Undefined",
+      "id": 6
+    }
+  ]
+}
