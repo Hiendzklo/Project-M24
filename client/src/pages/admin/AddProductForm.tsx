@@ -1,7 +1,7 @@
 // src/components/admin/AddProductForm.tsx
 import React, { useState } from 'react';
-import axiosInstance from '../../api/axiosConfig';
-import { storage } from '../../firebaseConfig'; // Import cấu hình Firebase
+import axiosInstance from '../../store/axiosConfig';
+import { storage } from '../../config/firebaseConfig'; // Import cấu hình Firebase
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 interface AddProductFormProps {

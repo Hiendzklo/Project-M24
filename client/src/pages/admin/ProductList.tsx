@@ -1,6 +1,6 @@
 // src/components/admin/ProductList.tsx
 import React, { useState, useEffect } from 'react';
-import axiosInstance from '../../api/axiosConfig';
+import axiosInstance from '../../store/axiosConfig';
 import Product from './Product';
 import { FaSort } from 'react-icons/fa';
 import AddProductForm from './AddProductForm';
