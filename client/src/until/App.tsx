@@ -8,7 +8,7 @@ import ProductList from '../pages/admin/ProductList';
 import OrderList from '../pages/admin/OrderList';
 import CustomerList from '../pages/admin/CustomerList';
 import Setting from '../pages/admin/Setting';
-import Login from '../pages/admin/Login';
+import Login from '../pages/Login/Login';
 
 
 const App: React.FC = () => {
