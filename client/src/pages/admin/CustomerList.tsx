@@ -95,14 +95,6 @@ const CustomerList: React.FC = () => {
               </td>
               <td className="px-4 py-2">
                 <button className="bg-blue-500 text-white px-2 py-1 rounded mx-1">Xem</button>
-                {user.role === 'Admin' && (
-                  <button
-                    className={`bg-${user.isActive ? 'red' : 'green'}-500 text-white px-2 py-1 rounded mx-1`}
-                    onClick={() => toggleUserStatus(user.id)}
-                  >
-                    {user.isActive ? 'Deactivate' : 'Activate'}
-                  </button>
-                )}
               </td>
             </tr>
           ))}
