@@ -1,4 +1,4 @@
-// src/components/admin/CustomerList.tsx
+// src/pages/admin/CustomerList.tsx
 import React from 'react';
 
 const CustomerList: React.FC = () => {

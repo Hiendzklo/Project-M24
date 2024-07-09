@@ -1,4 +1,4 @@
-// src/user/ImageUpload.tsx
+// src/components/ImageUpload.tsx
 import React, { useState } from 'react';
 import { storage } from '../config/firebaseConfig';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";

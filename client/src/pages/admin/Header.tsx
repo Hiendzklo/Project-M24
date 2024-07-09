@@ -1,4 +1,4 @@
-// src/components/admin/Header.tsx
+// src/pages/admin/Header.tsx
 import React from 'react';
 import { FaSearch, FaBell } from 'react-icons/fa';
 

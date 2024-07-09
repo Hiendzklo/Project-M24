@@ -1,38 +1,33 @@
-// src/pages/Login/Login.tsx
+// src/pages/Login/Register.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../store/axiosConfig';
 import { FaFacebook, FaGoogle } from 'react-icons/fa';
-import Footer from './Footer';
+import Footer from '../Login/Footer';
 
-interface LoginProps {
-  onLogin: () => void;
-}
-
-const Login: React.FC<LoginProps> = ({ onLogin }) => {
+const Register: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const newUser = {
+      id: Date.now(), // Tạo ID duy nhất dựa trên thời gian hiện tại
+      username,
+      password,
+      email
+    };
+
     try {
-      const response = await axiosInstance.get('/users');
-      const users = response.data;
-
-      const user = users.find((user: any) => user.username === username && user.password === password);
-
-      if (user) {
-        onLogin();
-        localStorage.setItem('isLoggedIn', 'true');
-        navigate('/products');
-      } else {
-        alert('Thông tin đăng nhập không đúng. Vui lòng thử lại.');
-      }
+      await axiosInstance.post('/users', newUser);
+      alert('Đăng ký thành công!');
+      navigate('/login');
     } catch (error) {
-      console.error('There was an error during the login process!', error);
-      alert('Đã xảy ra lỗi, vui lòng thử lại.');
+      console.error('There was an error registering the user!', error);
+      alert('Đăng ký thất bại, vui lòng thử lại.');
     }
   };
 
@@ -52,7 +47,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
         </div>
         <div className="relative z-10 w-1/3 bg-white p-12 rounded-lg shadow-lg flex items-center justify-center border border-red-500 m-8">
           <div className="max-w-md w-full">
-            <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">Đăng nhập</h2>
+            <h2 className="text-3xl font-bold mb-6 text-center text-gray-700">Đăng ký</h2>
             <form onSubmit={handleSubmit} className="w-full">
               <div className="mb-4">
                 <label className="block text-gray-700 mb-2" htmlFor="username">
@@ -62,9 +57,22 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                   id="username"
                   type="text"
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-red-500"
-                  placeholder="Email/SDT/Tên đăng nhập"
+                  placeholder="Tên đăng nhập"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2" htmlFor="email">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-red-500"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="mb-4">
@@ -80,38 +88,15 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <div className="flex items-center justify-between mb-4">
-                <button
-                  type="button"
-                  className="text-sm text-red-500 hover:underline"
-                >
-                  Đăng nhập với mã QR
-                </button>
-              </div>
               <button
                 type="submit"
                 className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition duration-300"
               >
-                Đăng nhập
+                Đăng ký
               </button>
             </form>
-            <div className="flex items-center justify-between mt-4 w-full">
-              <a href="#" className="text-sm text-blue-500 hover:underline">Quên mật khẩu</a>
-              <a href="#" className="text-sm text-blue-500 hover:underline">Đăng nhập với SMS</a>
-            </div>
             <div className="text-center mt-6 w-full">
-              <p>HOẶC</p>
-              <div className="flex justify-center space-x-4 mt-4">
-                <button className="bg-blue-800 text-white px-4 py-2 rounded-full">
-                  <FaFacebook />
-                </button>
-                <button className="bg-red-600 text-white px-4 py-2 rounded-full">
-                  <FaGoogle />
-                </button>
-              </div>
-              <p className="mt-4">
-                Bạn mới biết đến Shopee? <a href="/register" className="text-red-500 hover:underline">Đăng ký</a>
-              </p>
+              <p>Bạn đã có tài khoản? <a href="/login" className="text-red-500 hover:underline">Đăng nhập</a></p>
             </div>
           </div>
         </div>
@@ -121,4 +106,4 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   );
 };
 
-export default Login;
+export default Register;

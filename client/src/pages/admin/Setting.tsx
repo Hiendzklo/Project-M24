@@ -1,4 +1,4 @@
-// src/components/admin/Setting.tsx
+// src/pages/admin/Setting.tsx
 import React from 'react';
 
 const Setting: React.FC = () => {

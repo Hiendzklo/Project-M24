@@ -1,4 +1,4 @@
-// src/components/admin/ProductList.tsx
+// src/pages/admin/ProductList.tsx
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../store/axiosConfig';
 import Product from './Product';
@@ -12,8 +12,8 @@ interface Product {
   category: string;
   price: number;
   date: string;
-  image: string;
-  description: string;
+  image?: string;
+  description?: string;
 }
 
 const ProductList: React.FC = () => {

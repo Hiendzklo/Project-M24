@@ -1,4 +1,4 @@
-// src/components/admin/AddProductForm.tsx
+// src/pages/admin/AddProductForm.tsx
 import React, { useState } from 'react';
 import axiosInstance from '../../store/axiosConfig';
 import { storage } from '../../config/firebaseConfig'; // Import cấu hình Firebase

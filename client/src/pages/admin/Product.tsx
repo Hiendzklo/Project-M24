@@ -1,4 +1,4 @@
-// src/components/admin/Product.tsx
+// src/pages/admin/Product.tsx
 import React from 'react';
 
 interface ProductProps {
