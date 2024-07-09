@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../../store/axiosConfig';
+import axiosInstance from '../../../store/axiosConfig';
 
 interface LoginProps {
   onLogin: () => void;

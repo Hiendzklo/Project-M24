@@ -7,8 +7,8 @@ import ProductList from '../pages/admin/ProductList';
 import OrderList from '../pages/admin/OrderList';
 import CustomerList from '../pages/admin/CustomerList';
 import Setting from '../pages/admin/Setting';
-import Login from '../pages/Login/Login';
-import Register from '../pages/Register/Register'; // Import Register component
+import Login from '../pages/auth/login/Login';
+import Register from '../pages/auth/register/Register'; // Import Register component
 
 const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {

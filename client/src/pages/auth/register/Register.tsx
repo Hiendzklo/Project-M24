@@ -1,9 +1,9 @@
 // src/pages/Register/Register.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axiosInstance from '../../store/axiosConfig';
+import axiosInstance from '../../../store/axiosConfig';
 import { FaFacebook, FaGoogle } from 'react-icons/fa';
-import Footer from '../Login/Footer';
+import Footer from '../login/Footer';
 
 const Register: React.FC = () => {
   const [username, setUsername] = useState('');

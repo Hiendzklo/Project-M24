@@ -1,4 +1,3 @@
-// src/pages/admin/ProductList.tsx
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../store/axiosConfig';
 import Product from './Product';
@@ -14,12 +13,15 @@ interface Product {
   date: string;
   image?: string;
   description?: string;
+  sku: string;
 }
 
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const productsPerPage = 5;
 
   useEffect(() => {
@@ -32,6 +34,31 @@ const ProductList: React.FC = () => {
       setProducts(response.data);
     } catch (error) {
       console.error('There was an error fetching the products!', error);
+    }
+  };
+
+  const handleView = (id: number) => {
+    const product = products.find(product => product.id === id);
+    if (product) {
+      setSelectedProduct(product);
+      alert(JSON.stringify(product, null, 2));
+    }
+  };
+
+  const handleEdit = (id: number) => {
+    const product = products.find(product => product.id === id);
+    if (product) {
+      setSelectedProduct(product);
+      setShowEditForm(true);
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      await axiosInstance.delete(`/products/${id}`);
+      setProducts(products.filter(product => product.id !== id));
+    } catch (error) {
+      console.error('There was an error deleting the product!', error);
     }
   };
 
@@ -48,6 +75,15 @@ const ProductList: React.FC = () => {
           setShowAddForm(false);
           fetchProducts();
         }} />
+      ) : showEditForm && selectedProduct ? (
+        <AddProductForm
+          product={selectedProduct}
+          onCancel={() => {
+            setShowEditForm(false);
+            setSelectedProduct(null);
+            fetchProducts();
+          }}
+        />
       ) : (
         <>
           <div className="flex justify-between items-center mb-4">
@@ -78,7 +114,13 @@ const ProductList: React.FC = () => {
             </thead>
             <tbody>
               {currentProducts.map(product => (
-                <Product key={product.id} {...product} />
+                <Product
+                  key={product.id}
+                  {...product}
+                  onView={handleView}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                />
               ))}
             </tbody>
           </table>

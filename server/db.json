@@ -1,12 +1,15 @@
 {
   "products": [
     {
-      "id": 1,
       "name": "Macbook Pro 13''",
-      "status": "Available",
-      "category": "Laptops",
       "price": 2999,
-      "date": "2022-06-20"
+      "sku": "hienklo1",
+      "status": "Available",
+      "description": "123",
+      "image": "",
+      "date": "2022-06-20",
+      "category": "Laptops",
+      "id": 1
     },
     {
       "id": 2,
@@ -44,66 +47,37 @@
       "id": 6,
       "name": "iphone5",
       "status": "Available",
-      "category": "Undefined",
+      "category": "Electronics",
       "price": 123123,
       "sku": "hienklo1",
       "description": "sdasaas",
       "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-e8bd3.appspot.com/o/images%2F%E1%BA%A3nh%20ch%E1%BB%A5p%20m%C3%A0n%20h%C3%ACnh%202024-02-27%20195201.png?alt=media&token=459f487d-0dfb-4523-9769-2a23e1a08bd8",
       "date": "2024-07-04"
+    },
+    {
+      "name": "iphone6",
+      "price": 5555,
+      "sku": "hienklo1",
+      "status": "Preorder",
+      "description": "213213",
+      "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-e8bd3.appspot.com/o/images%2F%E1%BA%A2nh%20ch%E1%BB%A5p%20m%C3%A0n%20h%C3%ACnh%202024-03-11%20111003.png?alt=media&token=f268f01a-9568-4bc5-8d44-609815b7554e",
+      "date": "2024-07-09",
+      "category": "Electronics",
+      "id": 7
+    },
+    {
+      "name": "iphone6",
+      "price": 546546,
+      "sku": "hienklo1",
+      "status": "Available",
+      "description": "sdfsf",
+      "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-e8bd3.appspot.com/o/images%2F%E1%BA%A2nh%20ch%E1%BB%A5p%20m%C3%A0n%20h%C3%ACnh%202024-02-27%20200349.png?alt=media&token=39cdd378-9957-4ddb-a02c-ab919577daef",
+      "date": "2024-07-09",
+      "category": "Electronics",
+      "id": 9
     }
   ],
-  "orders": [
-    {
-      "id": 1,
-      "productName": "Macbook Pro 13''",
-      "orderId": "UTG001",
-      "userId": "235657VHN",
-      "status": "Đợi hàng mới",
-      "totalPrice": 2999,
-      "date": "2022-06-20",
-      "note": "Giao diện HN"
-    },
-    {
-      "id": 2,
-      "productName": "Macbook Pro 14''",
-      "orderId": "UTG002",
-      "userId": "236787VHN",
-      "status": "Đã xác thực",
-      "totalPrice": 2999,
-      "date": "2022-02-22",
-      "note": "Giao diện HN"
-    },
-    {
-      "id": 3,
-      "productName": "iPhone 13 Mini",
-      "orderId": "UTG003",
-      "userId": "756657VHN",
-      "status": "Đang giao hàng",
-      "totalPrice": 999,
-      "date": "2022-02-22",
-      "note": "Giao diện HN"
-    },
-    {
-      "id": 4,
-      "productName": "iPhone 14",
-      "orderId": "UTG004",
-      "userId": "684657VHN",
-      "status": "Đã giao hàng",
-      "totalPrice": 1299,
-      "date": "2022-02-22",
-      "note": "Giao diện HN"
-    },
-    {
-      "id": 5,
-      "productName": "AirPods 2",
-      "orderId": "UTG005",
-      "userId": "984657VHN",
-      "status": "Đã thanh toán",
-      "totalPrice": 199,
-      "date": "2022-02-22",
-      "note": "Giao diện HN"
-    }
-  ],
+  "orders": [],
   "users": [
     {
       "id": 1,

@@ -1,21 +1,45 @@
-// src/pages/admin/AddProductForm.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axiosInstance from '../../store/axiosConfig';
-import { storage } from '../../config/firebaseConfig'; // Import cấu hình Firebase
+import { storage } from '../../config/firebaseConfig';
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 interface AddProductFormProps {
   onCancel: () => void;
+  product?: Product; // Thêm product vào prop
 }
 
-const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel }) => {
+interface Product {
+  id: number;
+  name: string;
+  status: string;
+  category: string;
+  price: number;
+  date: string;
+  image?: string;
+  description?: string;
+  sku: string; // Thêm thuộc tính sku
+}
+
+const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel, product }) => {
   const [productName, setProductName] = useState('');
   const [price, setPrice] = useState('');
   const [sku, setSku] = useState('');
   const [status, setStatus] = useState('Available');
   const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
+
+  useEffect(() => {
+    if (product) {
+      setProductName(product.name);
+      setPrice(product.price.toString());
+      setSku(product.sku);
+      setStatus(product.status);
+      setDescription(product.description || '');
+      setCategory(product.category);
+    }
+  }, [product]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -25,7 +49,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    let imageUrl = '';
+    let imageUrl = product?.image || '';
 
     if (image) {
       const storageRef = ref(storage, `images/${image.name}`);
@@ -41,15 +65,15 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel }) => {
         }, 
         async () => {
           imageUrl = await getDownloadURL(uploadTask.snapshot.ref);
-          addProduct(imageUrl);
+          saveProduct(imageUrl);
         }
       );
     } else {
-      addProduct(imageUrl);
+      saveProduct(imageUrl);
     }
   };
 
-  const addProduct = async (imageUrl: string) => {
+  const saveProduct = async (imageUrl: string) => {
     const newProduct = {
       name: productName,
       price: parseFloat(price),
@@ -57,15 +81,19 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel }) => {
       status,
       description,
       image: imageUrl,
-      date: new Date().toISOString().split('T')[0],
-      category: 'Undefined' // Thêm giá trị mặc định cho category
+      date: product?.date || new Date().toISOString().split('T')[0],
+      category,
     };
 
     try {
-      await axiosInstance.post('/products', newProduct);
-      onCancel(); // Đóng form sau khi thêm sản phẩm thành công
+      if (product) {
+        await axiosInstance.put(`/products/${product.id}`, newProduct);
+      } else {
+        await axiosInstance.post('/products', newProduct);
+      }
+      onCancel(); // Đóng form sau khi thêm hoặc chỉnh sửa sản phẩm thành công
     } catch (error) {
-      console.error('There was an error adding the product!', error);
+      console.error('There was an error saving the product!', error);
     }
   };
 
@@ -75,7 +103,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel }) => {
         <button className="text-blue-500 mb-4" onClick={onCancel}>
           &larr; Back
         </button>
-        <h1 className="text-2xl font-bold mb-6">Add Product</h1>
+        <h1 className="text-2xl font-bold mb-6">{product ? 'Edit Product' : 'Add Product'}</h1>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="productName">
@@ -136,6 +164,23 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel }) => {
             </select>
           </div>
           <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
+              Category
+            </label>
+            <select
+              id="category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            >
+              <option value="">Select Category</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Laptops">Laptops</option>
+              <option value="Phones">Phones</option>
+            </select>
+          </div>
+          <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
               Image
             </label>
@@ -169,7 +214,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel }) => {
               type="submit"
               className="bg-black text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
-              Add Product
+              {product ? 'Save Changes' : 'Add Product'}
             </button>
           </div>
         </form>
