@@ -1,4 +1,3 @@
-// src/until/App.tsx
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from '../pages/admin/Sidebar';
@@ -43,7 +42,7 @@ const App: React.FC = () => {
                 <Route path="/" element={<Dashboard />} />
                 <Route path="/products" element={<ProductList />} />
                 <Route path="/orders" element={<OrderList />} />
-                <Route path="/customers" element={<CustomerList />} />
+                <Route path="/customers" element={<CustomerList />} /> {/* Thêm route cho CustomerList */}
                 <Route path="/setting" element={<Setting />} />
                 <Route path="*" element={<Navigate to="/" />} />
               </Routes>

@@ -1,9 +1,6 @@
-// src/pages/Login/Login.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../store/axiosConfig';
-import { FaFacebook, FaGoogle } from 'react-icons/fa';
-import Footer from './Footer';
 
 interface LoginProps {
   onLogin: () => void;
@@ -19,20 +16,23 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
     try {
       const response = await axiosInstance.get('/users');
-      const users = response.data;
-
-      const user = users.find((user: any) => user.username === username && user.password === password);
+      const user = response.data.find((u: any) => u.username === username && u.password === password);
 
       if (user) {
-        onLogin();
-        localStorage.setItem('isLoggedIn', 'true');
-        navigate('/products');
+        if (!user.isActive) {
+          alert('Tài khoản của bạn đã bị khóa.');
+        } else {
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('userRole', user.role);
+          onLogin();
+          navigate('/');
+        }
       } else {
-        alert('Thông tin đăng nhập không đúng. Vui lòng thử lại.');
+        alert('Tên đăng nhập hoặc mật khẩu không đúng.');
       }
     } catch (error) {
-      console.error('There was an error during the login process!', error);
-      alert('Đã xảy ra lỗi, vui lòng thử lại.');
+      console.error('There was an error logging in!', error);
+      alert('Đã xảy ra lỗi khi đăng nhập, vui lòng thử lại.');
     }
   };
 
@@ -62,7 +62,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                   id="username"
                   type="text"
                   className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-red-500"
-                  placeholder="Email/SDT/Tên đăng nhập"
+                  placeholder="Tên đăng nhập"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
@@ -80,14 +80,6 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <div className="flex items-center justify-between mb-4">
-                <button
-                  type="button"
-                  className="text-sm text-red-500 hover:underline"
-                >
-                  Đăng nhập với mã QR
-                </button>
-              </div>
               <button
                 type="submit"
                 className="w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition duration-300"
@@ -95,28 +87,9 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
                 Đăng nhập
               </button>
             </form>
-            <div className="flex items-center justify-between mt-4 w-full">
-              <a href="#" className="text-sm text-blue-500 hover:underline">Quên mật khẩu</a>
-              <a href="#" className="text-sm text-blue-500 hover:underline">Đăng nhập với SMS</a>
-            </div>
-            <div className="text-center mt-6 w-full">
-              <p>HOẶC</p>
-              <div className="flex justify-center space-x-4 mt-4">
-                <button className="bg-blue-800 text-white px-4 py-2 rounded-full">
-                  <FaFacebook />
-                </button>
-                <button className="bg-red-600 text-white px-4 py-2 rounded-full">
-                  <FaGoogle />
-                </button>
-              </div>
-              <p className="mt-4">
-                Bạn mới biết đến Shopee? <a href="/register" className="text-red-500 hover:underline">Đăng ký</a>
-              </p>
-            </div>
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

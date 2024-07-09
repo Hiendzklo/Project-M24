@@ -1,4 +1,4 @@
-// src/pages/Login/Register.tsx
+// src/pages/Register/Register.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../store/axiosConfig';
