@@ -4,7 +4,7 @@ interface ProductProps {
   id: number;
   name: string;
   status: string;
-  category: string;
+  category: string; // Cập nhật kiểu dữ liệu category
   price: number;
   date: string;
   onView: (id: number) => void;
@@ -18,7 +18,7 @@ const Product: React.FC<ProductProps> = ({ id, name, status, category, price, da
       <td className="px-4 py-2 text-left">{id}</td>
       <td className="px-4 py-2 text-left">{name}</td>
       <td className="px-4 py-2 text-left">{status}</td>
-      <td className="px-4 py-2 text-left">{category || 'Undefined'}</td>
+      <td className="px-4 py-2 text-left">{category}</td> {/* Hiển thị tên danh mục */}
       <td className="px-4 py-2 text-left">${price.toFixed(2)}</td>
       <td className="px-4 py-2 text-left">{date}</td>
       <td className="px-4 py-2 text-left">

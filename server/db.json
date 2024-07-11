@@ -1,6 +1,21 @@
 {
+  "categories": [
+    {
+      "id": 1,
+      "name": "Electronics"
+    },
+    {
+      "id": 2,
+      "name": "Laptops"
+    },
+    {
+      "id": 3,
+      "name": "Phones"
+    }
+  ],
   "products": [
     {
+      "id": 1,
       "name": "Macbook Pro 13''",
       "price": 2999,
       "sku": "hienklo1",
@@ -8,14 +23,13 @@
       "description": "123",
       "image": "",
       "date": "2022-06-20",
-      "category": "Laptops",
-      "id": 1
+      "category": 2
     },
     {
       "id": 2,
       "name": "Macbook Pro 14''",
       "status": "In Review",
-      "category": "Laptops",
+      "category": 2,
       "price": 2999,
       "date": "2022-02-22"
     },
@@ -23,7 +37,7 @@
       "id": 3,
       "name": "iPhone 13 Mini",
       "status": "Sold Out",
-      "category": "Phones",
+      "category": 3,
       "price": 999,
       "date": "2022-02-22"
     },
@@ -31,7 +45,7 @@
       "id": 4,
       "name": "iPhone 14",
       "status": "Preorder",
-      "category": "Phones",
+      "category": 3,
       "price": 1299,
       "date": "2022-02-22"
     },
@@ -39,7 +53,7 @@
       "id": 5,
       "name": "AirPods 2",
       "status": "Available",
-      "category": "Electronics",
+      "category": 1,
       "price": 199,
       "date": "2022-02-22"
     },
@@ -47,7 +61,7 @@
       "id": 6,
       "name": "iphone5",
       "status": "Available",
-      "category": "Electronics",
+      "category": 1,
       "price": 123123,
       "sku": "hienklo1",
       "description": "sdasaas",
@@ -55,6 +69,7 @@
       "date": "2024-07-04"
     },
     {
+      "id": 7,
       "name": "iphone6",
       "price": 5555,
       "sku": "hienklo1",
@@ -62,10 +77,10 @@
       "description": "213213",
       "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-e8bd3.appspot.com/o/images%2F%E1%BA%A2nh%20ch%E1%BB%A5p%20m%C3%A0n%20h%C3%ACnh%202024-03-11%20111003.png?alt=media&token=f268f01a-9568-4bc5-8d44-609815b7554e",
       "date": "2024-07-09",
-      "category": "Electronics",
-      "id": 7
+      "category": 1
     },
     {
+      "id": 9,
       "name": "iphone6",
       "price": 546546,
       "sku": "hienklo1",
@@ -73,8 +88,18 @@
       "description": "sdfsf",
       "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-e8bd3.appspot.com/o/images%2F%E1%BA%A2nh%20ch%E1%BB%A5p%20m%C3%A0n%20h%C3%ACnh%202024-02-27%20200349.png?alt=media&token=39cdd378-9957-4ddb-a02c-ab919577daef",
       "date": "2024-07-09",
-      "category": "Electronics",
-      "id": 9
+      "category": 1
+    },
+    {
+      "name": "iphone8",
+      "price": 3333,
+      "sku": "hienklo1",
+      "status": "Sold Out",
+      "description": "hhhh",
+      "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-e8bd3.appspot.com/o/images%2F%E1%BA%A2nh%20ch%E1%BB%A5p%20m%C3%A0n%20h%C3%ACnh%202024-03-07%20225127.png?alt=media&token=1856261e-347e-496c-b5a1-a3fc4ed03f14",
+      "date": "2024-07-11",
+      "category": 3,
+      "id": 10
     }
   ],
   "orders": [],
@@ -95,7 +120,7 @@
       "email": "hiendzklo290805@gmail.com",
       "role": "User",
       "date": "2024-07-04",
-      "isActive": true
+      "isActive": false
     }
   ]
 }

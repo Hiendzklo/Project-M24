@@ -5,19 +5,24 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 interface AddProductFormProps {
   onCancel: () => void;
-  product?: Product; // Thêm product vào prop
+  product?: Product;
 }
 
 interface Product {
   id: number;
   name: string;
   status: string;
-  category: string;
+  category: number; // Cập nhật kiểu dữ liệu category
   price: number;
   date: string;
   image?: string;
   description?: string;
-  sku: string; // Thêm thuộc tính sku
+  sku: string;
+}
+
+interface Category {
+  id: number;
+  name: string;
 }
 
 const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel, product }) => {
@@ -29,6 +34,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel, product }) =>
   const [category, setCategory] = useState('');
   const [image, setImage] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
     if (product) {
@@ -37,9 +43,19 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel, product }) =>
       setSku(product.sku);
       setStatus(product.status);
       setDescription(product.description || '');
-      setCategory(product.category);
+      setCategory(product.category.toString());
     }
+    fetchCategories();
   }, [product]);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axiosInstance.get('/categories');
+      setCategories(response.data);
+    } catch (error) {
+      console.error('There was an error fetching the categories!', error);
+    }
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -82,7 +98,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel, product }) =>
       description,
       image: imageUrl,
       date: product?.date || new Date().toISOString().split('T')[0],
-      category,
+      category: parseInt(category),
     };
 
     try {
@@ -161,6 +177,8 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel, product }) =>
               <option value="Available">Available</option>
               <option value="Unavailable">Unavailable</option>
               <option value="Preorder">Preorder</option>
+              <option value="In Review">In Review</option>
+              <option value="Sold Out">Sold Out</option>
             </select>
           </div>
           <div className="mb-4">
@@ -175,9 +193,9 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel, product }) =>
               required
             >
               <option value="">Select Category</option>
-              <option value="Electronics">Electronics</option>
-              <option value="Laptops">Laptops</option>
-              <option value="Phones">Phones</option>
+              {categories.map(cat => (
+                <option key={cat.id} value={cat.id}>{cat.name}</option>
+              ))}
             </select>
           </div>
           <div className="mb-4">

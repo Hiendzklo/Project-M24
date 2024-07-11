@@ -8,7 +8,7 @@ interface Product {
   id: number;
   name: string;
   status: string;
-  category: string;
+  category: number; // Cập nhật kiểu dữ liệu category
   price: number;
   date: string;
   image?: string;
@@ -16,8 +16,14 @@ interface Product {
   sku: string;
 }
 
+interface Category {
+  id: number;
+  name: string;
+}
+
 const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
@@ -26,6 +32,7 @@ const ProductList: React.FC = () => {
 
   useEffect(() => {
     fetchProducts();
+    fetchCategories();
   }, []);
 
   const fetchProducts = async () => {
@@ -34,6 +41,15 @@ const ProductList: React.FC = () => {
       setProducts(response.data);
     } catch (error) {
       console.error('There was an error fetching the products!', error);
+    }
+  };
+
+  const fetchCategories = async () => {
+    try {
+      const response = await axiosInstance.get('/categories');
+      setCategories(response.data);
+    } catch (error) {
+      console.error('There was an error fetching the categories!', error);
     }
   };
 
@@ -60,6 +76,11 @@ const ProductList: React.FC = () => {
     } catch (error) {
       console.error('There was an error deleting the product!', error);
     }
+  };
+
+  const getCategoryName = (categoryId: number) => {
+    const category = categories.find(cat => cat.id === categoryId);
+    return category ? category.name : 'Unknown';
   };
 
   const indexOfLastProduct = currentPage * productsPerPage;
@@ -117,6 +138,7 @@ const ProductList: React.FC = () => {
                 <Product
                   key={product.id}
                   {...product}
+                  category={getCategoryName(product.category)} // Hiển thị tên danh mục
                   onView={handleView}
                   onEdit={handleEdit}
                   onDelete={handleDelete}
