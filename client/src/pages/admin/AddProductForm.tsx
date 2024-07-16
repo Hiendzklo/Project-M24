@@ -12,12 +12,15 @@ interface Product {
   id: number;
   name: string;
   status: string;
-  category: number; // Cập nhật kiểu dữ liệu category
+  category: number;
   price: number;
   date: string;
   image?: string;
   description?: string;
   sku: string;
+  sold: number;
+  discount: number;
+  smallImage?: string;
 }
 
 interface Category {
@@ -33,17 +36,22 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel, product }) =>
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [image, setImage] = useState<File | null>(null);
+  const [smallImage, setSmallImage] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [sold, setSold] = useState('');
+  const [discount, setDiscount] = useState('');
 
   useEffect(() => {
     if (product) {
       setProductName(product.name);
-      setPrice(product.price.toString());
+      setPrice(product.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'));
       setSku(product.sku);
       setStatus(product.status);
       setDescription(product.description || '');
       setCategory(product.category.toString());
+      setSold(product.sold.toString());
+      setDiscount(product.discount.toString());
     }
     fetchCategories();
   }, [product]);
@@ -63,42 +71,68 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel, product }) =>
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    let imageUrl = product?.image || '';
-
-    if (image) {
-      const storageRef = ref(storage, `images/${image.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, image);
-
-      uploadTask.on('state_changed', 
-        (snapshot) => {
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setUploadProgress(progress);
-        }, 
-        (error) => {
-          console.error(error);
-        }, 
-        async () => {
-          imageUrl = await getDownloadURL(uploadTask.snapshot.ref);
-          saveProduct(imageUrl);
-        }
-      );
-    } else {
-      saveProduct(imageUrl);
+  const handleSmallImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setSmallImage(e.target.files[0]);
     }
   };
 
-  const saveProduct = async (imageUrl: string) => {
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    const formattedValue = value.replace(/\D/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    setPrice(formattedValue);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const uploadImage = async (file: File): Promise<string> => {
+      return new Promise((resolve, reject) => {
+        const storageRef = ref(storage, `images/${file.name}`);
+        const uploadTask = uploadBytesResumable(storageRef, file);
+
+        uploadTask.on('state_changed',
+          (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setUploadProgress(progress);
+          },
+          (error) => {
+            console.error(error);
+            reject(error);
+          },
+          async () => {
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            resolve(downloadURL);
+          }
+        );
+      });
+    };
+
+    try {
+      const [imageUrl, smallImageUrl] = await Promise.all([
+        image ? uploadImage(image) : Promise.resolve(product?.image || ''),
+        smallImage ? uploadImage(smallImage) : Promise.resolve(product?.smallImage || '')
+      ]);
+
+      saveProduct(imageUrl, smallImageUrl);
+    } catch (error) {
+      console.error('Error uploading images:', error);
+    }
+  };
+
+  const saveProduct = async (imageUrl: string, smallImageUrl: string) => {
     const newProduct = {
       name: productName,
-      price: parseFloat(price),
+      price: parseFloat(price.replace(/\./g, '')), // Chuyển đổi lại giá trị thành số
       sku,
       status,
       description,
       image: imageUrl,
+      smallImage: smallImageUrl,
       date: product?.date || new Date().toISOString().split('T')[0],
       category: parseInt(category),
+      sold: parseInt(sold),
+      discount: parseInt(discount)
     };
 
     try {
@@ -107,7 +141,7 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel, product }) =>
       } else {
         await axiosInstance.post('/products', newProduct);
       }
-      onCancel(); // Đóng form sau khi thêm hoặc chỉnh sửa sản phẩm thành công
+      onCancel();
     } catch (error) {
       console.error('There was an error saving the product!', error);
     }
@@ -141,9 +175,9 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel, product }) =>
             </label>
             <input
               id="price"
-              type="number"
+              type="text"
               value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={handlePriceChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Price"
               required
@@ -199,6 +233,34 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel, product }) =>
             </select>
           </div>
           <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="sold">
+              Sold
+            </label>
+            <input
+              id="sold"
+              type="number"
+              value={sold}
+              onChange={(e) => setSold(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Sold"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="discount">
+              Discount (%)
+            </label>
+            <input
+              id="discount"
+              type="number"
+              value={discount}
+              onChange={(e) => setDiscount(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Discount"
+              required
+            />
+          </div>
+          <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="image">
               Image
             </label>
@@ -206,6 +268,17 @@ const AddProductForm: React.FC<AddProductFormProps> = ({ onCancel, product }) =>
               id="image"
               type="file"
               onChange={handleImageChange}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="smallImage">
+              Small Image
+            </label>
+            <input
+              id="smallImage"
+              type="file"
+              onChange={handleSmallImageChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             />
           </div>

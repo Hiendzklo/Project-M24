@@ -8,12 +8,14 @@ interface Product {
   id: number;
   name: string;
   status: string;
-  category: number; // Cập nhật kiểu dữ liệu category
+  category: number;
   price: number;
   date: string;
   image?: string;
   description?: string;
   sku: string;
+  sold: number;
+  discount: number;
 }
 
 interface Category {
@@ -130,6 +132,8 @@ const ProductList: React.FC = () => {
                 <th className="px-4 py-2 text-left">Category</th>
                 <th className="px-4 py-2 text-left">Price</th>
                 <th className="px-4 py-2 text-left">Date</th>
+                <th className="px-4 py-2 text-left">Sold</th>
+                <th className="px-4 py-2 text-left">Discount (%)</th>
                 <th className="px-4 py-2 text-left">Action</th>
               </tr>
             </thead>
@@ -138,7 +142,7 @@ const ProductList: React.FC = () => {
                 <Product
                   key={product.id}
                   {...product}
-                  category={getCategoryName(product.category)} // Hiển thị tên danh mục
+                  category={getCategoryName(product.category)}
                   onView={handleView}
                   onEdit={handleEdit}
                   onDelete={handleDelete}
