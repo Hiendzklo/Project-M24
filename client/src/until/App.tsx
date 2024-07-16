@@ -22,6 +22,7 @@ import MyAccount from '../pages/user/MyAccount'; // Import trang MyAccount
 import ProductDetail from '../pages/user/ProductDetail';
 import CartPage from '../pages/user/CartPage';
 import Checkout from '../pages/user/Checkout'; // Import trang Checkout
+import SearchResultsPage from '../pages/user/SearchResultsPage'; // Import trang SearchResultsPage
 import { CartProvider } from '../pages/user/CartContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -156,6 +157,7 @@ const UserLayout: React.FC<{
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<Checkout />} /> 
         <Route path="/order-history" element={<OrderHistory />} /> 
+        <Route path="/search" element={<SearchResultsPage />} /> 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </main>
