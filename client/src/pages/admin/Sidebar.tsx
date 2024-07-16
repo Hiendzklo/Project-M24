@@ -33,11 +33,6 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
             </Link>
           </li>
           <li className="mt-2">
-            <Link to="/orders" className="flex items-center py-2 px-4 rounded hover:bg-gray-700">
-              <FaClipboardList className="mr-2" /> Orders
-            </Link>
-          </li>
-          <li className="mt-2">
             <Link to="/customers" className="flex items-center py-2 px-4 rounded hover:bg-gray-700">
               <FaUsers className="mr-2" /> Customers
             </Link>

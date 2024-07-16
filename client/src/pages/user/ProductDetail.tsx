@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useCart } from './CartContext';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Product {
   id: number;
@@ -19,8 +22,10 @@ interface Product {
 
 const ProductDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const { addToCart } = useCart();
   const [product, setProduct] = useState<Product | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -37,6 +42,39 @@ const ProductDetail: React.FC = () => {
 
   const handleQuantityChange = (amount: number) => {
     setQuantity(prevQuantity => Math.max(1, prevQuantity + amount));
+  };
+
+  const handleAddToCart = () => {
+    if (product) {
+      addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity,
+        image: product.image || 'https://via.placeholder.com/150', // Default image if undefined
+      });
+      toast.success('Sản phẩm đã được thêm vào Giỏ hàng!', {
+        position: "bottom-center",
+        autoClose: 3000,
+      });
+    }
+  };
+
+  const addToCartWithoutNotification = () => {
+    if (product) {
+      addToCart({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity,
+        image: product.image || 'https://via.placeholder.com/150', // Default image if undefined
+      });
+    }
+  };
+
+  const handleBuyNow = () => {
+    addToCartWithoutNotification();
+    navigate('/checkout');
   };
 
   if (!product) {
@@ -78,8 +116,8 @@ const ProductDetail: React.FC = () => {
             <button onClick={() => handleQuantityChange(1)} className="px-2 py-1 bg-gray-300">+</button>
           </div>
           <div className="flex space-x-4 mt-4">
-            <button className="bg-orange-500 text-white px-4 py-2 rounded">Thêm Vào Giỏ Hàng</button>
-            <button className="bg-red-500 text-white px-4 py-2 rounded">Mua Ngay</button>
+            <button onClick={handleAddToCart} className="bg-orange-500 text-white px-4 py-2 rounded">Thêm Vào Giỏ Hàng</button>
+            <button onClick={handleBuyNow} className="bg-red-500 text-white px-4 py-2 rounded">Mua Ngay</button>
           </div>
         </div>
       </div>

@@ -1,4 +1,3 @@
-// src/App.tsx
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Sidebar from '../pages/admin/Sidebar';
@@ -21,6 +20,12 @@ import Register from '../pages/auth/register/Register';
 import Footer from '../pages/auth/login/Footer';
 import MyAccount from '../pages/user/MyAccount'; // Import trang MyAccount
 import ProductDetail from '../pages/user/ProductDetail';
+import CartPage from '../pages/user/CartPage';
+import Checkout from '../pages/user/Checkout'; // Import trang Checkout
+import SearchResultsPage from '../pages/user/SearchResultsPage'; // Import trang SearchResultsPage
+import { CartProvider } from '../pages/user/CartContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
@@ -73,22 +78,31 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/register" element={<Register onRegister={handleLogin} />} />
-        <Route
-          path="*"
-          element={
-            role === 'Admin' ? (
-              <AdminLayout handleLogout={handleLogout} />
-            ) : (
-              <UserLayout handleLogout={handleLogout} username={username} avatar={avatar} handleAvatarChange={handleAvatarChange} setUsername={setUsername} />
-            )
-          }
-        />
-      </Routes>
-    </Router>
+    <CartProvider username={username || ''}>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/register" element={<Register onRegister={handleLogin} />} />
+          <Route
+            path="*"
+            element={
+              role === 'Admin' ? (
+                <AdminLayout handleLogout={handleLogout} />
+              ) : (
+                <UserLayout
+                  handleLogout={handleLogout}
+                  username={username}
+                  avatar={avatar}
+                  handleAvatarChange={handleAvatarChange}
+                  setUsername={setUsername}
+                />
+              )
+            }
+          />
+        </Routes>
+      </Router>
+      <ToastContainer />
+    </CartProvider>
   );
 };
 
@@ -99,37 +113,49 @@ const AdminLayout: React.FC<{ handleLogout: () => void }> = ({ handleLogout }) =
       <Header />
       <main className="flex-1 p-4 bg-gray-100">
         <Routes>
-          <Route path="/admin" element={<Dashboard />} />
+          <Route path="/" element={<Dashboard />} />
           <Route path="/products" element={<ProductList />} />
           <Route path="/orders" element={<OrderList />} />
           <Route path="/customers" element={<CustomerList />} />
           <Route path="/setting" element={<Setting />} />
-          <Route path="*" element={<Navigate to="/admin" />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </main>
     </div>
   </div>
 );
 
-const UserLayout: React.FC<{ handleLogout: () => void; username: string | null; avatar: string | null; handleAvatarChange: (newAvatar: string) => void; setUsername: (username: string | null) => void }> = ({ handleLogout, username, avatar, handleAvatarChange, setUsername }) => (
+const UserLayout: React.FC<{
+  handleLogout: () => void;
+  username: string | null;
+  avatar: string | null;
+  handleAvatarChange: (newAvatar: string) => void;
+  setUsername: (username: string | null) => void;
+}> = ({ handleLogout, username, avatar, handleAvatarChange, setUsername }) => (
   <div>
     <HeaderUser username={username} avatar={avatar} />
     <main className="flex-1 p-4 bg-gray-100">
       <Routes>
-        <Route path="/" element={
-          <>
-            <PromoSection />
-            <CategorySection />
-            <FlashSaleSection />
-            <PromotionSection />
-            <TopProductsSection />
-            <ProductUser />
-            <br />
-            <Footer />
-          </>
-        } />
-        <Route path="/my-account" element={<MyAccount handleAvatarChange={handleAvatarChange} setUsername={setUsername} />} /> 
+        <Route
+          path="/"
+          element={
+            <>
+              <PromoSection />
+              <CategorySection />
+              <FlashSaleSection />
+              <PromotionSection />
+              <TopProductsSection />
+              <ProductUser />
+              <br />
+              <Footer />
+            </>
+          }
+        />
+        <Route path="/my-account" element={<MyAccount handleAvatarChange={handleAvatarChange} setUsername={setUsername} />} />
         <Route path="/products/:id" element={<ProductDetail />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<Checkout />} /> {/* Thêm tuyến đường cho trang checkout */}
+        <Route path="/search" element={<SearchResultsPage />} /> {/* Thêm tuyến đường cho trang tìm kiếm */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </main>

@@ -83,20 +83,6 @@
   ],
   "products": [
     {
-      "name": "Áo sơ mi trắng nam AKUBA tay dài đi học, đi làm, vải lụa không nhăn, thấm hút mồ hôi tốt 01AB2044",
-      "price": 175000,
-      "sku": "Hiển",
-      "status": "Available",
-      "description": "Miễn phí vận chuyển",
-      "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-e8bd3.appspot.com/o/images%2F%C3%81o%20s%C6%A1%20mi%20tr%E1%BA%AFng.jpg?alt=media&token=b69c2da0-30ba-46ba-8e32-f3458eb44310",
-      "smallImage": "https://firebasestorage.googleapis.com/v0/b/project-m24-e8bd3.appspot.com/o/images%2F15.7%20freeship%20si%C3%AAu%20r%E1%BA%BB%20%C4%91%E1%BB%93ng%20ki%E1%BB%83m.png?alt=media&token=0afbca0d-0a7c-430f-be57-8960998acfa0",
-      "date": "2024-07-15",
-      "category": 1,
-      "sold": 20,
-      "discount": 55,
-      "id": 1
-    },
-    {
       "name": "Quần Tây Nam - Quần Âu Nam cao cấp Trendyman Công Sở Dáng Ôm Chuẩn Vải lụa Không Nhăn Không Xù cao cấp",
       "price": 85800,
       "sku": "Hiển",
@@ -293,7 +279,7 @@
       "id": 15
     },
     {
-      "name": "Ốp lưng iphone camera viền cao đôi mắt 6/6s/6plus/7/8/plus/x/xs/11/12/13/14/15/pro/max/plus/promax",
+      "name": "Ốp lưng iphone camera viền cao đôi mắt 6/6s/6plus/7/8/plus/x/xs",
       "price": 7900,
       "sku": "Hiển",
       "status": "Available",
@@ -419,7 +405,80 @@
       "id": 24
     }
   ],
-  "orders": [],
+  "orders": [
+    {
+      "userId": null,
+      "items": [
+        {
+          "id": 4,
+          "name": "Quần lót boxer Choice Việt Nam QLD04 vải cotton chất lượng cao",
+          "price": 18800,
+          "quantity": 1,
+          "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-e8bd3.appspot.com/o/images%2Fqu%E1%BA%A7n%20l%C3%B3t%20boxer%20choice.jpg?alt=media&token=1fd5f12f-7a5e-4524-a6a3-d39275f15458"
+        }
+      ],
+      "address": "đasa",
+      "phone": "ádasdad",
+      "name": "adasd",
+      "date": "2024-07-16T04:40:10.394Z",
+      "status": "Pending",
+      "id": 1
+    },
+    {
+      "userId": null,
+      "items": [
+        {
+          "id": 10,
+          "name": "Áo Phông Nữ Cotton Tàu Loại Đẹp Thêu Ngựa Cổ Tròn Form Rộng Siêu Hot MA911",
+          "price": 55000,
+          "quantity": 1,
+          "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-e8bd3.appspot.com/o/images%2F%C3%81o%20ph%C3%B4ng%20n%E1%BB%AF%20cotton.jpg?alt=media&token=f18b429d-3165-4dc4-8aeb-6fce1f1659e1"
+        }
+      ],
+      "address": "123123",
+      "phone": "123123",
+      "name": "12312",
+      "date": "2024-07-16T04:43:32.310Z",
+      "status": "Pending",
+      "id": 2
+    },
+    {
+      "userId": null,
+      "items": [
+        {
+          "id": 17,
+          "name": "Đèn Led Mini USB siêu sáng, vỏ nhựa dẻo, phụ kiện cắm cổng USB sạc dự phòng, laptop - Màu Ngẫu Nhiên",
+          "price": 32000,
+          "quantity": 1,
+          "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-e8bd3.appspot.com/o/images%2F%C4%90%C3%A8n%20Led%20mini%20USB%20si%C3%AAu%20s%C3%A1ng.jpg?alt=media&token=d3e7cd25-0ccd-4a68-ab29-8b241f7f56ab"
+        }
+      ],
+      "address": "ádasdad",
+      "phone": "đâsdad",
+      "name": "adadasd",
+      "date": "2024-07-16T04:43:59.483Z",
+      "status": "Pending",
+      "id": 3
+    },
+    {
+      "userId": null,
+      "items": [
+        {
+          "id": 17,
+          "name": "Đèn Led Mini USB siêu sáng, vỏ nhựa dẻo, phụ kiện cắm cổng USB sạc dự phòng, laptop - Màu Ngẫu Nhiên",
+          "price": 32000,
+          "quantity": 1,
+          "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-e8bd3.appspot.com/o/images%2F%C4%90%C3%A8n%20Led%20mini%20USB%20si%C3%AAu%20s%C3%A1ng.jpg?alt=media&token=d3e7cd25-0ccd-4a68-ab29-8b241f7f56ab"
+        }
+      ],
+      "address": "ádasdasd",
+      "phone": "ádadad",
+      "name": "sdasdas",
+      "date": "2024-07-16T04:44:30.411Z",
+      "status": "Pending",
+      "id": 4
+    }
+  ],
   "users": [
     {
       "id": 1,
@@ -437,7 +496,8 @@
       "email": "hiendzklo290805@gmail.com",
       "role": "User",
       "date": "2024-07-04",
-      "isActive": true
+      "isActive": true,
+      "cart": []
     },
     {
       "username": "user_y65t7j",
@@ -452,6 +512,25 @@
       "provider": "google",
       "isActive": true,
       "id": 1720492421619
+    },
+    {
+      "username": "lilia123",
+      "email": "hienklo1@gmail.com",
+      "password": "123456",
+      "role": "User",
+      "date": "2024-07-16T02:41:40.818Z",
+      "isActive": true,
+      "cart": [
+        {
+          "productId": 23,
+          "quantity": 1
+        },
+        {
+          "productId": 12,
+          "quantity": 1
+        }
+      ],
+      "id": 1720492421620
     }
   ]
 }

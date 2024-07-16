@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 import { auth, googleProvider, facebookProvider } from '../../../config/firebaseConfig';
 import { signInWithPopup } from 'firebase/auth';
 import Footer from '../login/Footer';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
 
 interface RegisterProps {
   onRegister: (role: string, username: string) => void;
@@ -26,9 +26,35 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
       password: '',
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      onRegister('User', values.username);
-      navigate('/');
+    onSubmit: async (values) => {
+      const newUser = {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+        role: 'User',
+        date: new Date().toISOString(),
+        isActive: true,
+        cart: [],
+      };
+
+      try {
+        const response = await fetch('http://localhost:8080/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newUser),
+        });
+
+        if (response.ok) {
+          onRegister('User', values.username);
+          navigate('/');
+        } else {
+          console.error('Failed to register user');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     },
   });
 
