@@ -14,6 +14,10 @@ const validationSchema = yup.object({
   username: yup.string().required('Tên đăng nhập là bắt buộc'),
   email: yup.string().email('Email không hợp lệ').required('Email là bắt buộc'),
   password: yup.string().min(6, 'Mật khẩu phải có ít nhất 6 ký tự').required('Mật khẩu là bắt buộc'),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password')], 'Mật khẩu xác nhận không khớp')
+    .required('Xác nhận mật khẩu là bắt buộc'),
 });
 
 const Register: React.FC<RegisterProps> = ({ onRegister }) => {
@@ -24,6 +28,7 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
       username: '',
       email: '',
       password: '',
+      confirmPassword: '',
     },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
@@ -152,6 +157,24 @@ const Register: React.FC<RegisterProps> = ({ onRegister }) => {
                 />
                 {formik.touched.password && formik.errors.password ? (
                   <div className="text-red-500 text-sm mt-1">{formik.errors.password}</div>
+                ) : null}
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2" htmlFor="confirmPassword">
+                  Xác nhận mật khẩu
+                </label>
+                <input
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type="password"
+                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-red-500"
+                  placeholder="Xác nhận mật khẩu"
+                  value={formik.values.confirmPassword}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                />
+                {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+                  <div className="text-red-500 text-sm mt-1">{formik.errors.confirmPassword}</div>
                 ) : null}
               </div>
               <button

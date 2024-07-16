@@ -51,7 +51,7 @@ const ProductDetail: React.FC = () => {
         name: product.name,
         price: product.price,
         quantity,
-        image: product.image || 'https://via.placeholder.com/150', // Default image if undefined
+        image: product.image || 'https://via.placeholder.com/150',
       });
       toast.success('Sản phẩm đã được thêm vào Giỏ hàng!', {
         position: "bottom-center",
@@ -67,7 +67,7 @@ const ProductDetail: React.FC = () => {
         name: product.name,
         price: product.price,
         quantity,
-        image: product.image || 'https://via.placeholder.com/150', // Default image if undefined
+        image: product.image || 'https://via.placeholder.com/150', 
       });
     }
   };

@@ -22,10 +22,10 @@ import MyAccount from '../pages/user/MyAccount'; // Import trang MyAccount
 import ProductDetail from '../pages/user/ProductDetail';
 import CartPage from '../pages/user/CartPage';
 import Checkout from '../pages/user/Checkout'; // Import trang Checkout
-import SearchResultsPage from '../pages/user/SearchResultsPage'; // Import trang SearchResultsPage
 import { CartProvider } from '../pages/user/CartContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import OrderHistory from '../pages/user/OrderHistory'; // Import trang OrderHistory
 
 const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
@@ -154,8 +154,8 @@ const UserLayout: React.FC<{
         <Route path="/my-account" element={<MyAccount handleAvatarChange={handleAvatarChange} setUsername={setUsername} />} />
         <Route path="/products/:id" element={<ProductDetail />} />
         <Route path="/cart" element={<CartPage />} />
-        <Route path="/checkout" element={<Checkout />} /> {/* Thêm tuyến đường cho trang checkout */}
-        <Route path="/search" element={<SearchResultsPage />} /> {/* Thêm tuyến đường cho trang tìm kiếm */}
+        <Route path="/checkout" element={<Checkout />} /> 
+        <Route path="/order-history" element={<OrderHistory />} /> 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </main>

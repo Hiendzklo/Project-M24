@@ -6,7 +6,7 @@ interface CardProps {
   value: string;
   change: string;
   icon: React.ReactNode;
-  className?: string; // Thêm prop className
+  className?: string;
 }
 
 const Card: React.FC<CardProps> = ({ title, value, change, icon, className }) => {

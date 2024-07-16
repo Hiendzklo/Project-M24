@@ -24,7 +24,7 @@ const ProductUser: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/products'); // Địa chỉ API của bạn
+        const response = await axios.get('http://localhost:8080/products'); 
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -41,7 +41,7 @@ const ProductUser: React.FC = () => {
           <div
             key={product.id}
             className="bg-white shadow p-4 rounded relative transform transition duration-300 hover:scale-105 hover:shadow-lg border border-transparent hover:border-orange-500 cursor-pointer"
-            onClick={() => navigate(`/products/${product.id}`)} // Điều hướng tới trang chi tiết sản phẩm
+            onClick={() => navigate(`/products/${product.id}`)} 
           >
             {product.discount > 0 && (
               <span className="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 text-xs z-10">

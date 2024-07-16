@@ -35,8 +35,8 @@ const Product: React.FC<ProductProps> = ({
       <td className="px-4 py-2">{category}</td>
       <td className="px-4 py-2">{price}</td>
       <td className="px-4 py-2">{date}</td>
-      <td className="px-4 py-2 text-green-600">{sold}</td> {/* Thêm màu cho số lượng đã bán */}
-      <td className="px-4 py-2 text-red-600">{discount}%</td> {/* Thêm màu cho phần trăm giảm giá */}
+      <td className="px-4 py-2 text-green-600">{sold}</td> 
+      <td className="px-4 py-2 text-red-600">{discount}%</td> 
       <td className="px-4 py-2 flex space-x-2">
         <button
           className="text-white bg-blue-500 px-3 py-1 rounded-full hover:bg-blue-600"

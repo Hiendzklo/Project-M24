@@ -18,7 +18,7 @@ const Checkout: React.FC = () => {
       return;
     }
 
-    // Thực hiện logic thanh toán ở đây
+
     clearCart();
     toast.success('Thanh toán thành công!');
     navigate('/');

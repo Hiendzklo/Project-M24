@@ -19,7 +19,7 @@ const PromoSection: React.FC = () => {
   return (
     <div className="bg-white py-4">
       <div className="container mx-auto py-4 flex">
-        <div className="w-2/3 mr-4"> {/* Giảm chiều rộng phần bên trái */}
+        <div className="w-2/3 mr-4"> 
           <Slider {...settings}>
             <div>
               <img src="https://cf.shopee.vn/file/vn-11134258-7r98o-lwvnhla0s5azc4_xxhdpi" alt="Slide 1" className="w-full"/>
@@ -41,8 +41,8 @@ const PromoSection: React.FC = () => {
             </div>
           </Slider>
         </div>
-        <div className="w-1/3 flex flex-col space-y-4"> {/* Tăng chiều rộng phần bên phải */}
-          <div className="flex-1 h-1/2"> {/* Tăng chiều cao của các phần tử bên phải */}
+        <div className="w-1/3 flex flex-col space-y-4"> 
+          <div className="flex-1 h-1/2"> 
             <img src="https://cf.shopee.vn/file/vn-11134258-7r98o-lxhuianqytwb35_xhdpi" alt="Ad 1" className="w-full h-full object-cover"/>
           </div>
           <div className="flex-1 h-1/2">

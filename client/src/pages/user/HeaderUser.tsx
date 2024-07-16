@@ -165,7 +165,6 @@ const HeaderUser: React.FC<HeaderUserProps> = ({ username, avatar }) => {
         </div>
       </header>
       <div className="pt-32">
-        {/* This padding-top ensures content below the header is not hidden */}
       </div>
       <br/><br/><br/><br/>
     </>

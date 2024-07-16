@@ -12,7 +12,7 @@ const Sidebar: React.FC<SidebarProps> = ({ handleLogout }) => {
 
   const onLogoutClick = () => {
     handleLogout();
-    navigate('/login');  // Chuyển hướng đến trang đăng nhập sau khi đăng xuất
+    navigate('/login');  
   };
 
   return (

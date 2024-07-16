@@ -31,14 +31,14 @@ const promotions = [
 const PromotionSection: React.FC = () => {
   const [currentBanner, setCurrentBanner] = useState(0);
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 8; // 4 items per row and 2 rows
+  const itemsPerPage = 8; 
   const totalPages = Math.ceil(promotions.length / itemsPerPage);
   const bannerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentBanner((prev) => (prev + 1) % banners.length);
-    }, 3000); // Change banner every 3 seconds
+    }, 3000); 
     return () => clearInterval(interval);
   }, []);
 

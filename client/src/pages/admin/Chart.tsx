@@ -33,7 +33,7 @@ const Chart: React.FC = () => {
           <button className="bg-gray-200 px-2 py-1 rounded">Last 30 Days</button>
         </div>
       </div>
-      <div className="h-96 w-full flex items-center justify-center"> {/* Thay đổi chiều cao của chart */}
+      <div className="h-96 w-full flex items-center justify-center"> 
         <Line data={data} />
       </div>
     </div>

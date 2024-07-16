@@ -20,7 +20,7 @@ const Category: React.FC = () => {
   return (
     <div className="bg-white shadow-lg rounded-lg p-6 w-full h-full flex flex-col items-center justify-center">
       <h2 className="text-lg font-bold mb-2">Top Categories</h2>
-      <div className="h-96 w-full flex items-center justify-center"> {/* Thay đổi chiều cao của biểu đồ */}
+      <div className="h-96 w-full flex items-center justify-center"> 
         <Doughnut data={data} />
       </div>
       <div className="text-center text-2xl font-bold mt-4">$6.2k</div>

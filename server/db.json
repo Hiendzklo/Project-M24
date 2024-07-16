@@ -531,6 +531,16 @@
         }
       ],
       "id": 1720492421620
+    },
+    {
+      "username": "yasuo123",
+      "email": "hiendzklo290805@gmail.com1",
+      "password": "123456",
+      "role": "User",
+      "date": "2024-07-16T07:03:12.795Z",
+      "isActive": true,
+      "cart": [],
+      "id": 1720492421621
     }
   ]
 }
